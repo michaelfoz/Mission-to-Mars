@@ -5,9 +5,6 @@ import pandas as pd
 import datetime as dt
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Set up Splinter
-executable_path = {'executable_path': ChromeDriverManager().install()}
-browser = Browser('chrome', **executable_path, headless=False)
 
 def scrape_all():
     # Initiate headless driver for deployment
@@ -29,7 +26,7 @@ def scrape_all():
     browser.quit()
     return data
 
-# ## News Title and Paragraph
+
 def mars_news(browser):
 
     # Scrape Mars News
@@ -58,9 +55,6 @@ def mars_news(browser):
     return news_title, news_p
 
 
-
-# ## JPL Space Images Featured Image
-
 def featured_image(browser):
     # Visit URL
     url = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html'
@@ -85,15 +79,10 @@ def featured_image(browser):
     # Use the base url to create an absolute url
     img_url = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{img_url_rel}'
 
-
     return img_url
 
-
-
-# ## Mars Facts
-
 def mars_facts():
- # Add try/except for error handling
+    # Add try/except for error handling
     try:
         # Use 'read_html' to scrape the facts table into a dataframe
         df = pd.read_html('https://data-class-mars-facts.s3.amazonaws.com/Mars_Facts/index.html')[0]
