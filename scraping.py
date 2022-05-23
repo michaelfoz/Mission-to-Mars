@@ -8,28 +8,30 @@ from webdriver_manager.chrome import ChromeDriverManager
 executable_path = {'executable_path': ChromeDriverManager().install()}
 browser = Browser('chrome', **executable_path, headless=False)
 
-# Visit the Mars news site
-url = 'https://redplanetscience.com/'
-browser.visit(url)
+def mars_news():
 
-# Optional delay for loading the page
-browser.is_element_present_by_css('div.list_text', wait_time=1)
+    # Visit the Mars news site
+    url = 'https://redplanetscience.com/'
+    browser.visit(url)
 
-# Convert the browser html to a soup object and then quit the browser
-html = browser.html
-news_soup = soup(html, 'html.parser')
+    # Optional delay for loading the page
+    browser.is_element_present_by_css('div.list_text', wait_time=1)
 
-slide_elem = news_soup.select_one('div.list_text')
+    # Convert the browser html to a soup object and then quit the browser
+    html = browser.html
+    news_soup = soup(html, 'html.parser')
 
-slide_elem.find('div', class_='content_title')
+    slide_elem = news_soup.select_one('div.list_text')
 
-# Use the parent element to find the first a tag and save it as `news_title`
-news_title = slide_elem.find('div', class_='content_title').get_text()
-news_title
+    slide_elem.find('div', class_='content_title')
 
-# Use the parent element to find the paragraph text
-news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
-news_p
+    # Use the parent element to find the first a tag and save it as `news_title`
+    news_title = slide_elem.find('div', class_='content_title').get_text()
+    news_title
+
+    # Use the parent element to find the paragraph text
+    news_p = slide_elem.find('div', class_='article_teaser_body').get_text()
+    news_p
 
 # ## JPL Space Images Featured Image
 
